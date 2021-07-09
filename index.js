@@ -21,8 +21,12 @@ client.on('message', async (msg) => {
                 // 開催中か調べる
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
-                    console.log('kita')
-                    const isWin = parseInt(dice.dice) < res[2];
+                    let isWin;
+                    try {
+                        isWin = parseInt(dice.dice) < res[2];
+                    } catch (e) {
+                        isWin = true
+                    }
                     if (isWin) {
                         const winner = dice;
                         winner.discordId = res[1];

@@ -19,10 +19,9 @@ client.on('message', async (msg) => {
                 const response = await axios.get(`https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice?channelId=${msg.channel.id}`);
                 const dice = response.data.body;
                 // 開催中か調べる
-                console.log(msg.content);
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
-                console.log(res);
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
+                    console.log('kita')
                     const isWin = parseInt(dice.dice) < res[2];
                     if (isWin) {
                         const winner = dice;

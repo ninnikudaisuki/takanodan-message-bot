@@ -23,6 +23,7 @@ client.on('message', async (msg) => {
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
                     try {
+                        console.log(dice.dice)
                         isWin = parseInt(dice.dice) < res[2];
                     } catch (e) {
                         isWin = true

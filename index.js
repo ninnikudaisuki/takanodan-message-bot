@@ -27,12 +27,17 @@ client.on('message', async (msg) => {
                     } catch (e) {
                         isWin = true
                     }
-                    if (isWin) {
-                        const winner = dice;
-                        winner.discordId = res[1];
-                        winner.dice = res[2];
-                        await axios.put('https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice', winner);
-                        msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);
+                    console.log(isWin);
+                    try {
+                        if (isWin) {
+                            const winner = dice;
+                            winner.discordId = res[1];
+                            winner.dice = res[2];
+                            await axios.put('https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice', winner);
+                            msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);
+                        }
+                    } catch (e) {
+                        console.log(e);
                     }
                 } else {
                     msg.channel.send('ダイスは開催されていません');

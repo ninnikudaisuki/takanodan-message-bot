@@ -12,6 +12,19 @@ client.on('message', async (msg) => {
     const now = moment()
     // ダイスチャンネル内の処理
     if (process.env.DICE_CHANNELS.split(' ').indexOf(msg.channel.id) > -1) {
+        
+        // コマンドの処理
+        if (msg.content === '/close') {
+            // ダイスクローズ
+            try {
+                await axios.delete(`https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice?channelId=${msg.channel.id}`);
+                msg.channel.send('クローズしました');
+            } catch (e) {
+                msg.channel.send('しかし、なにもおこらなかった！');
+            }
+            return;
+        }
+        
         // rollemのメッセージの処理
         if (msg.author.username === 'rollem') {
             // ダイス状況を取得

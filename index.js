@@ -35,7 +35,7 @@ client.on('message', async (msg) => {
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
                     const newDice = msg.content.match(/` (\d+) ` ⟵.+/)[1];
-                    const mention = msg.mentions;
+                    const mention = msg.mentions.users.keys()[0];
                     console.log(mention)
                     try {
                         const oldDice = parseInt(dice.dice);
@@ -46,7 +46,7 @@ client.on('message', async (msg) => {
                     try {
                         if (isWin) {
                             const winner = dice;
-                            winner.discordId = res[1];
+                            winner.discordId = mention;
                             winner.dice = newDice;
                             await axios.put('https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot', winner);
                             msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);

@@ -18,10 +18,16 @@ client.on('message', async (msg) => {
             // ダイスクローズ
             try {
                 await axios.delete(`https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot?channelId=${msg.channel.id}`);
-                msg.channel.send('クローズしました');
+                await msg.channel.send('クローズしました');
             } catch (e) {
-                msg.channel.send('しかし、なにもおこらなかった！');
+                await msg.channel.send('しかし、なにもおこらなかった！');
             }
+            return;
+        } else if (msg.content === '/clear') {
+            // ルームクリア
+            const messages = await msg.channel.messages.fetch({limit: 100});
+            msg.channel.bulkDelete(messages);
+            
             return;
         }
         
@@ -48,13 +54,13 @@ client.on('message', async (msg) => {
                             winner.discordId = mention;
                             winner.dice = newDice;
                             await axios.put('https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot', winner);
-                            msg.channel.send(`<@${mention}>さんが現在トップです！！`);
+                            await msg.channel.send(`<@${mention}>さんが現在トップです！！`);
                         }
                     } catch (e) {
                         console.log(e);
                     }
                 } else {
-                    msg.channel.send('ダイスは開催されていません');
+                    await msg.channel.send('ダイスは開催されていません');
                 }
             } catch (e) {
                 console.log(e)

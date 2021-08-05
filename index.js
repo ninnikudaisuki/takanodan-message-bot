@@ -32,13 +32,14 @@ client.on('message', async (msg) => {
                 const response = await axios.get(`https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot?channelId=${msg.channel.id}`);
                 const dice = response.data;
                 // 開催中か調べる
-                console.log(msg.content);
-                const res = msg.match(/` (\d+) ` ⟵.+/);
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
+                    const newDice = msg.content.match(/` (\d+) ` ⟵.+/)[1];
+                    const mention = msg.mentions.users[0];
+                    console.log(mention)
                     try {
                         const oldDice = parseInt(dice.dice);
-                        isWin = oldDice ? oldDice < res[2] : true;
+                        isWin = oldDice ? oldDice < newDice : true;
                     } catch (e) {
                         isWin = true
                     }
@@ -46,7 +47,7 @@ client.on('message', async (msg) => {
                         if (isWin) {
                             const winner = dice;
                             winner.discordId = res[1];
-                            winner.dice = res[2];
+                            winner.dice = newDice;
                             await axios.put('https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot', winner);
                             msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);
                         }

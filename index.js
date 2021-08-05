@@ -33,6 +33,11 @@ client.on('message', async (msg) => {
                 const dice = response.data.body;
                 // 開催中か調べる
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
+                
+                console.log(msg.channel.id)
+                console.log(dice);
+                
+                
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
                     try {

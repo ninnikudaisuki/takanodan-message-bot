@@ -36,18 +36,20 @@ client.on('message', async (msg) => {
                     let isWin;
                     const newDice = msg.content.match(/` (\d+) ` ⟵.+/)[1];
                     const mention = msg.mentions.users.keys().next();
-                    console.log(mention)
+                    console.log(mention.value)
                     try {
                         const oldDice = parseInt(dice.dice);
                         isWin = oldDice ? oldDice < newDice : true;
                     } catch (e) {
                         isWin = true
                     }
+                    console.log(`isWin=${isWin}`);
                     try {
                         if (isWin) {
                             const winner = dice;
                             winner.discordId = mention;
                             winner.dice = newDice;
+                            console.log(winner);
                             //await axios.put('https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot', winner);
                             msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);
                         }

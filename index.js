@@ -33,6 +33,7 @@ client.on('message', async (msg) => {
                 const dice = response.data;
                 // 開催中か調べる
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
+                console.log(res)
                 
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
@@ -42,7 +43,6 @@ client.on('message', async (msg) => {
                     } catch (e) {
                         isWin = true
                     }
-                    console.log(isWin);
                     try {
                         if (isWin) {
                             const winner = dice;

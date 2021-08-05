@@ -32,8 +32,8 @@ client.on('message', async (msg) => {
                 const response = await axios.get(`https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot?channelId=${msg.channel.id}`);
                 const dice = response.data;
                 // 開催中か調べる
+                console.dir(msg);
                 const res = msg.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
-                console.log(res);
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
                     try {

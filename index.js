@@ -17,7 +17,7 @@ client.on('message', async (msg) => {
         if (msg.content === '/close') {
             // ダイスクローズ
             try {
-                await axios.delete(`https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice?channelId=${msg.channel.id}`);
+                await axios.delete(`https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot?channelId=${msg.channel.id}`);
                 msg.channel.send('クローズしました');
             } catch (e) {
                 msg.channel.send('しかし、なにもおこらなかった！');
@@ -29,7 +29,7 @@ client.on('message', async (msg) => {
         if (msg.author.username === 'rollem') {
             // ダイス状況を取得
             try {
-                const response = await axios.get(`https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice?channelId=${msg.channel.id}`);
+                const response = await axios.get(`https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot?channelId=${msg.channel.id}`);
                 const dice = response.data.body;
                 // 開催中か調べる
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
@@ -47,7 +47,7 @@ client.on('message', async (msg) => {
                             const winner = dice;
                             winner.discordId = res[1];
                             winner.dice = res[2];
-                            await axios.put('https://x1ahmjgsve.execute-api.us-east-1.amazonaws.com/Prod/dice', winner);
+                            await axios.put('https://r5zkjctgxl.execute-api.ap-northeast-1.amazonaws.com/Prod/dicebot', winner);
                             msg.channel.send(`<@${res[1]}>さんが現在トップです！！`);
                         }
                     } catch (e) {

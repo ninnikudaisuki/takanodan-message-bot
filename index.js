@@ -35,7 +35,7 @@ client.on('message', async (msg) => {
                 if (dice.dateEnded && dice.dateEnded.length > 0 && now.isSameOrBefore(moment(dice.dateEnded))) {
                     let isWin;
                     const newDice = msg.content.match(/` (\d+) ` ⟵.+/)[1];
-                    const mention = msg.mentions.users.keys();
+                    const mention = msg.mentions.users.keys().next();
                     console.log(mention)
                     try {
                         const oldDice = parseInt(dice.dice);

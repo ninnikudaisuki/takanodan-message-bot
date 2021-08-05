@@ -34,7 +34,7 @@ client.on('message', async (msg) => {
                 // 開催中か調べる
                 const res = msg.content.match(/<@!?(\d+)>.?, \n` (\d+) ` ⟵.+/);
                 
-                console.log(msg.channel.id)
+                console.log(response)
                 console.log(dice);
                 
                 
